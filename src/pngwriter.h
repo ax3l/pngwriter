@@ -100,8 +100,8 @@ class pngwriter
 
 
    
-   int height_;
-   int width_;
+   png_uint_32 height_;
+   png_uint_32 width_;
    int  backgroundcolour_;
    int bit_depth_;
    int rowbytes_;
@@ -186,16 +186,16 @@ class pngwriter
     * then width and height can be 1 pixel, and the size will be automatically adjusted once you use
     * readfromfile().
     * */
-   pngwriter();   
+   pngwriter();
    pngwriter(const pngwriter &rhs);
-   pngwriter(int width, int height, int backgroundcolour, char * filename);   
-   pngwriter(int width, int height, double backgroundcolour, char * filename);    
-   pngwriter(int width, int height, int backgroundcolour, const char * filename);   
-   pngwriter(int width, int height, double backgroundcolour, const char * filename);    
+   pngwriter(png_uint_32 width, png_uint_32 height, int backgroundcolour, char * filename);   
+   pngwriter(png_uint_32 width, png_uint_32 height, double backgroundcolour, char * filename);    
+   pngwriter(png_uint_32 width, png_uint_32 height, int backgroundcolour, const char * filename);   
+   pngwriter(png_uint_32 width, png_uint_32 height, double backgroundcolour, const char * filename);    
 
    /* Destructor
     * */
-   ~pngwriter();  
+   ~pngwriter();
 
    /* Assignment Operator
     * */
@@ -352,12 +352,12 @@ class pngwriter
    /* Get Height
     * When you open a PNG with readfromfile() you can find out its height with this function.
     * */
-   int getheight(void);
+   png_uint_32 getheight(void);
    
    /* Get Width
     * When you open a PNG with readfromfile() you can find out its width with this function.
     * */
-   int getwidth(void);
+   png_uint_32 getwidth(void);
 
    /* Set Compression Level
     * Set the compression level that will be used for the image. -1 is to use the  default,
@@ -495,7 +495,7 @@ class pngwriter
     * Resizes the PNGwriter instance. Note: All image data is set to black (this is 
     * a resizing, not a scaling, of the image).
     * */
-   void resize(int width, int height);
+   void resize(png_uint_32 width, png_uint_32 height);
 
    /* Boundary Fill
     * All pixels adjacent to the start pixel will be filled with the fill colour, until the boundary colour is encountered. 
@@ -565,7 +565,7 @@ class pngwriter
     * Scale the image in such a way as to meet the target width and height. 
     * Tip: if you want to keep the image proportional, scale_k() might be more appropriate.
     * */
-   void scale_wh(int finalwidth, int finalheight);
+   void scale_wh(png_uint_32 finalwidth, png_uint_32 finalheight);
 
 
    /* Blended Functions
@@ -701,22 +701,22 @@ class pngwriter
     *    -----
     * */
    
-   void cross( int x, int y, int xwidth, int yheight, double red, double green, double blue);
-   void cross( int x, int y, int xwidth, int yheight, int red, int green, int blue);
+   void cross( png_uint_32 x, png_uint_32 y, png_uint_32 xwidth, png_uint_32 yheight, double red, double green, double blue);
+   void cross( png_uint_32 x, png_uint_32 y, png_uint_32 xwidth, png_uint_32 yheight, int red, int green, int blue);
 
-   void maltesecross( int x, int y, int xwidth, int yheight, int x_bar_height, int y_bar_width, double red, double green, double blue);
-   void maltesecross( int x, int y, int xwidth, int yheight, int x_bar_height, int y_bar_width, int red, int green, int blue);
+   void maltesecross( png_uint_32 x, png_uint_32 y, png_uint_32 xwidth, png_uint_32 yheight, png_uint_32 x_bar_height, png_uint_32 y_bar_width, double red, double green, double blue);
+   void maltesecross( png_uint_32 x, png_uint_32 y, png_uint_32 xwidth, png_uint_32 yheight, png_uint_32 x_bar_height, png_uint_32 y_bar_width, int red, int green, int blue);
 
    /* Diamond and filled diamond
     * Plots a diamond shape, given the x, y position, the width and height, and the colour.
     * Filled diamond plots a filled diamond.
     * */
    
-   void filleddiamond( int x, int y, int width, int height, int red, int green, int blue);
-   void diamond(int x, int y, int width, int height, int red, int green, int blue);
+   void filleddiamond( png_uint_32 x, png_uint_32 y, png_uint_32 width, png_uint_32 height, int red, int green, int blue);
+   void diamond(png_uint_32 x, png_uint_32 y, png_uint_32 width, png_uint_32 height, int red, int green, int blue);
    
-   void filleddiamond( int x, int y, int width, int height, double red, double green, double blue);
-   void diamond(int x, int y, int width, int height, double red, double green, double blue);
+   void filleddiamond( png_uint_32 x, png_uint_32 y, png_uint_32 width, png_uint_32 height, double red, double green, double blue);
+   void diamond(png_uint_32 x, png_uint_32 y, png_uint_32 width, png_uint_32 height, double red, double green, double blue);
 
    /* Get Text Width, Get Text Width UTF8
     * Returns the approximate width, in pixels, of the specified *unrotated* text. It is calculated by adding 

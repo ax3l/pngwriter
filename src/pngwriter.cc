@@ -66,8 +66,6 @@ pngwriter::pngwriter()
    strcpy(textsoftware_, "PNGwriter: An easy to use graphics library.");
    strcpy(texttitle_, "out.png");
 
-   int kkkk;
-
    bit_depth_ = 16; //Default bit depth for new images
    colortype_=2;
    screengamma_ = 2.2;
@@ -78,7 +76,7 @@ pngwriter::pngwriter()
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
      }
 
-   for (kkkk = 0; kkkk < height_; kkkk++)
+   for (png_uint_32 kkkk = 0; kkkk < height_; kkkk++)
      {
         graph_[kkkk] = (png_bytep)malloc(6*width_ * sizeof(png_byte));
 	if(graph_[kkkk] == NULL)
@@ -92,13 +90,12 @@ pngwriter::pngwriter()
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
      }
 
-   int tempindex;
-   for(int hhh = 0; hhh<width_;hhh++)
+   for(png_uint_32 hhh = 0; hhh<width_;hhh++)
      {
-	for(int vhhh = 0; vhhh<height_;vhhh++)
+	for(png_uint_32 vhhh = 0; vhhh<height_;vhhh++)
 	  {
 	     //graph_[vhhh][6*hhh + i] where i goes from 0 to 5
-	     tempindex = 6*hhh;
+	     const png_uint_32 tempindex = 6*hhh;
 	     graph_[vhhh][tempindex] = (char) floor(((double)backgroundcolour_)/256);
 	     graph_[vhhh][tempindex+1] = (char)(backgroundcolour_%256);
 	     graph_[vhhh][tempindex+2] = (char) floor(((double)backgroundcolour_)/256);
@@ -133,8 +130,6 @@ pngwriter::pngwriter(const pngwriter &rhs)
    strcpy(textsoftware_,rhs.textsoftware_);
    strcpy(texttitle_, rhs.texttitle_);
 
-   int kkkk;
-
    bit_depth_ = rhs.bit_depth_;
    colortype_= rhs.colortype_;
    screengamma_ = rhs.screengamma_;
@@ -145,7 +140,7 @@ pngwriter::pngwriter(const pngwriter &rhs)
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
      }
 
-   for (kkkk = 0; kkkk < height_; kkkk++)
+   for (png_uint_32 kkkk = 0; kkkk < height_; kkkk++)
      {
         graph_[kkkk] = (png_bytep)malloc(6*width_ * sizeof(png_byte));
 	if(graph_[kkkk] == NULL)
@@ -158,13 +153,12 @@ pngwriter::pngwriter(const pngwriter &rhs)
      {
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
      }
-   int tempindex;
-   for(int hhh = 0; hhh<width_;hhh++)
+   for(png_uint_32 hhh = 0; hhh<width_;hhh++)
      {
-	for(int vhhh = 0; vhhh<height_;vhhh++)
+	for(png_uint_32 vhhh = 0; vhhh<height_;vhhh++)
 	  {
 	     //   graph_[vhhh][6*hhh + i ] i=0 to 5
-	     tempindex=6*hhh;
+	     const png_uint_32 tempindex=6*hhh;
 	     graph_[vhhh][tempindex] = rhs.graph_[vhhh][tempindex];
 	     graph_[vhhh][tempindex+1] = rhs.graph_[vhhh][tempindex+1];
 	     graph_[vhhh][tempindex+2] = rhs.graph_[vhhh][tempindex+2];
@@ -178,7 +172,7 @@ pngwriter::pngwriter(const pngwriter &rhs)
 
 //Constructor for int colour levels, char * filename
 //////////////////////////////////////////////////////////////////////////
-pngwriter::pngwriter(int x, int y, int backgroundcolour, char * filename)
+pngwriter::pngwriter(png_uint_32 x, png_uint_32 y, int backgroundcolour, char * filename)
 {
    width_ = x;
    height_ = y;
@@ -199,13 +193,6 @@ pngwriter::pngwriter(int x, int y, int backgroundcolour, char * filename)
    strcpy(texttitle_, filename);
    strcpy(filename_, filename);
 
-   if((width_<0)||(height_<0))
-     {
-	std::cerr << " PNGwriter::pngwriter - ERROR **: Constructor called with negative height or width. Setting width and height to 1." << std::endl;
-	width_ = 1;
-	height_ = 1;
-     }
-
    if(backgroundcolour_ >65535)
      {
 	std::cerr << " PNGwriter::pngwriter - WARNING **: Constructor called with background colour greater than 65535. Setting to 65535."<<std::endl;
@@ -218,8 +205,6 @@ pngwriter::pngwriter(int x, int y, int backgroundcolour, char * filename)
 	backgroundcolour_ = 0;
      }
 
-   int kkkk;
-
    bit_depth_ = 16; //Default bit depth for new images
    colortype_=2;
    screengamma_ = 2.2;
@@ -230,7 +215,7 @@ pngwriter::pngwriter(int x, int y, int backgroundcolour, char * filename)
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
      }
 
-   for (kkkk = 0; kkkk < height_; kkkk++)
+   for (png_uint_32 kkkk = 0; kkkk < height_; kkkk++)
      {
         graph_[kkkk] = (png_bytep)malloc(6*width_ * sizeof(png_byte));
 	if(graph_[kkkk] == NULL)
@@ -244,13 +229,12 @@ pngwriter::pngwriter(int x, int y, int backgroundcolour, char * filename)
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
      }
 
-   int tempindex;
-   for(int hhh = 0; hhh<width_;hhh++)
+   for(png_uint_32 hhh = 0; hhh<width_;hhh++)
      {
-	for(int vhhh = 0; vhhh<height_;vhhh++)
+	for(png_uint_32 vhhh = 0; vhhh<height_;vhhh++)
 	  {
 	     //graph_[vhhh][6*hhh + i] i = 0  to 5
-	     tempindex = 6*hhh;
+	     const png_uint_32 tempindex = 6*hhh;
 	     graph_[vhhh][tempindex] = (char) floor(((double)backgroundcolour_)/256);
 	     graph_[vhhh][tempindex+1] = (char)(backgroundcolour_%256);
 	     graph_[vhhh][tempindex+2] = (char) floor(((double)backgroundcolour_)/256);
@@ -264,7 +248,7 @@ pngwriter::pngwriter(int x, int y, int backgroundcolour, char * filename)
 
 //Constructor for double levels, char * filename
 /////////////////////////////////////////////////////////////////////////
-pngwriter::pngwriter(int x, int y, double backgroundcolour, char * filename)
+pngwriter::pngwriter(png_uint_32 x, png_uint_32 y, double backgroundcolour, char * filename)
 {
    width_ = x;
    height_ = y;
@@ -285,13 +269,6 @@ pngwriter::pngwriter(int x, int y, double backgroundcolour, char * filename)
    strcpy(texttitle_, filename);
    strcpy(filename_, filename);
 
-   if((width_<0)||(height_<0))
-     {
-	std::cerr << " PNGwriter::pngwriter - ERROR **: Constructor called with negative height or width. Setting width and height to 1." << std::endl;
-	width_ = 1;
-	height_ = 1;
-     }
-
    if(backgroundcolour_ >65535)
      {
 	std::cerr << " PNGwriter::pngwriter - WARNING **: Constructor called with background colour greater than 1.0. Setting to 1.0."<<std::endl;
@@ -304,8 +281,6 @@ pngwriter::pngwriter(int x, int y, double backgroundcolour, char * filename)
 	backgroundcolour_ = 0;
      }
 
-   int kkkk;
-
    bit_depth_ = 16; //Default bit depth for new images
    colortype_=2;
    screengamma_ = 2.2;
@@ -316,7 +291,7 @@ pngwriter::pngwriter(int x, int y, double backgroundcolour, char * filename)
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
      }
 
-   for (kkkk = 0; kkkk < height_; kkkk++)
+   for (png_uint_32 kkkk = 0; kkkk < height_; kkkk++)
      {
         graph_[kkkk] = (png_bytep)malloc(6*width_ * sizeof(png_byte));
 	if(graph_[kkkk] == NULL)
@@ -330,13 +305,12 @@ pngwriter::pngwriter(int x, int y, double backgroundcolour, char * filename)
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
      }
 
-   int tempindex;
-   for(int hhh = 0; hhh<width_;hhh++)
+   for(png_uint_32 hhh = 0; hhh<width_;hhh++)
      {
-	for(int vhhh = 0; vhhh<height_;vhhh++)
+	for(png_uint_32 vhhh = 0; vhhh<height_;vhhh++)
 	  {
 	     // graph_[vhhh][tempindex + i] where i = 0 to 5
-	     tempindex = 6*hhh;
+	     const png_uint_32 tempindex = 6*hhh;
 	     graph_[vhhh][tempindex] = (char) floor(((double)backgroundcolour_)/256);
 	     graph_[vhhh][tempindex+1] = (char)(backgroundcolour_%256);
 	     graph_[vhhh][tempindex+2] = (char) floor(((double)backgroundcolour_)/256);
@@ -364,7 +338,7 @@ pngwriter::~pngwriter()
 
 //Constructor for int levels, const char * filename
 //////////////////////////////////////////////////////////////
-pngwriter::pngwriter(int x, int y, int backgroundcolour, const char * filename)
+pngwriter::pngwriter(png_uint_32 x, png_uint_32 y, int backgroundcolour, const char * filename)
 {
    width_ = x;
    height_ = y;
@@ -385,13 +359,6 @@ pngwriter::pngwriter(int x, int y, int backgroundcolour, const char * filename)
    strcpy(texttitle_, filename);
    strcpy(filename_, filename);
 
-   if((width_<0)||(height_<0))
-     {
-	std::cerr << " PNGwriter::pngwriter - ERROR **: Constructor called with negative height or width. Setting width and height to 1." << std::endl;
-	height_ = 1;
-	width_ = 1;
-     }
-
    if(backgroundcolour_ >65535)
      {
 	std::cerr << " PNGwriter::pngwriter - WARNING **: Constructor called with background colour greater than 65535. Setting to 65535."<<std::endl;
@@ -404,8 +371,6 @@ pngwriter::pngwriter(int x, int y, int backgroundcolour, const char * filename)
 	backgroundcolour_ = 0;
      }
 
-   int kkkk;
-
    bit_depth_ = 16; //Default bit depth for new images
    colortype_=2;
    screengamma_ = 2.2;
@@ -416,7 +381,7 @@ pngwriter::pngwriter(int x, int y, int backgroundcolour, const char * filename)
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
      }
 
-   for (kkkk = 0; kkkk < height_; kkkk++)
+   for (png_uint_32 kkkk = 0; kkkk < height_; kkkk++)
      {
         graph_[kkkk] = (png_bytep)malloc(6*width_ * sizeof(png_byte));
 	if(graph_[kkkk] == NULL)
@@ -430,13 +395,12 @@ pngwriter::pngwriter(int x, int y, int backgroundcolour, const char * filename)
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
      }
 
-   int tempindex;
-   for(int hhh = 0; hhh<width_;hhh++)
+   for(png_uint_32 hhh = 0; hhh<width_;hhh++)
      {
-	for(int vhhh = 0; vhhh<height_;vhhh++)
+	for(png_uint_32 vhhh = 0; vhhh<height_;vhhh++)
 	  {
 	     //graph_[vhhh][6*hhh + i] where i = 0 to 5
-	     tempindex=6*hhh;
+	     const png_uint_32 tempindex=6*hhh;
 	     graph_[vhhh][tempindex] = (char) floor(((double)backgroundcolour_)/256);
 	     graph_[vhhh][tempindex+1] = (char)(backgroundcolour_%256);
 	     graph_[vhhh][tempindex+2] = (char) floor(((double)backgroundcolour_)/256);
@@ -450,7 +414,7 @@ pngwriter::pngwriter(int x, int y, int backgroundcolour, const char * filename)
 
 //Constructor for double levels, const char * filename
 /////////////////////////////////////////////////////////////////////////
-pngwriter::pngwriter(int x, int y, double backgroundcolour, const char * filename)
+pngwriter::pngwriter(png_uint_32 x, png_uint_32 y, double backgroundcolour, const char * filename)
 {
    width_ = x;
    height_ = y;
@@ -471,13 +435,6 @@ pngwriter::pngwriter(int x, int y, double backgroundcolour, const char * filenam
    strcpy(texttitle_, filename);
    strcpy(filename_, filename);
 
-   if((width_<0)||(height_<0))
-     {
-	std::cerr << " PNGwriter::pngwriter - ERROR **: Constructor called with negative height or width. Setting width and height to 1." << std::endl;
-	width_ = 1;
-	height_ = 1;
-     }
-
    if(backgroundcolour_ >65535)
      {
 	std::cerr << " PNGwriter::pngwriter - WARNING **: Constructor called with background colour greater than 65535. Setting to 65535."<<std::endl;
@@ -490,8 +447,6 @@ pngwriter::pngwriter(int x, int y, double backgroundcolour, const char * filenam
 	backgroundcolour_ = 0;
      }
 
-   int kkkk;
-
    bit_depth_ = 16; //Default bit depth for new images
    colortype_=2;
    screengamma_ = 2.2;
@@ -502,7 +457,7 @@ pngwriter::pngwriter(int x, int y, double backgroundcolour, const char * filenam
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
      }
 
-   for (kkkk = 0; kkkk < height_; kkkk++)
+   for (png_uint_32 kkkk = 0; kkkk < height_; kkkk++)
      {
         graph_[kkkk] = (png_bytep)malloc(6*width_ * sizeof(png_byte));
 	if(graph_[kkkk] == NULL)
@@ -516,13 +471,12 @@ pngwriter::pngwriter(int x, int y, double backgroundcolour, const char * filenam
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
      }
 
-   int tempindex;
-   for(int hhh = 0; hhh<width_;hhh++)
+   for(png_uint_32 hhh = 0; hhh<width_;hhh++)
      {
-	for(int vhhh = 0; vhhh<height_;vhhh++)
+	for(png_uint_32 vhhh = 0; vhhh<height_;vhhh++)
 	  {
 	     //etc
-	     tempindex = 6*hhh;
+	     const png_uint_32 tempindex = 6*hhh;
 	     graph_[vhhh][tempindex] = (char) floor(((double)backgroundcolour_)/256);
 	     graph_[vhhh][tempindex+1] = (char)(backgroundcolour_%256);
 	     graph_[vhhh][tempindex+2] = (char) floor(((double)backgroundcolour_)/256);
@@ -562,8 +516,6 @@ pngwriter & pngwriter::operator = (const pngwriter & rhs)
    strcpy(texttitle_, rhs.texttitle_);
    strcpy(filename_, rhs.filename_);
 
-   int kkkk;
-
    bit_depth_ = rhs.bit_depth_;
    colortype_= rhs.colortype_;
    screengamma_ = rhs.screengamma_;
@@ -574,7 +526,7 @@ pngwriter & pngwriter::operator = (const pngwriter & rhs)
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
      }
 
-   for (kkkk = 0; kkkk < height_; kkkk++)
+   for (png_uint_32 kkkk = 0; kkkk < height_; kkkk++)
      {
         graph_[kkkk] = (png_bytep)malloc(6*width_ * sizeof(png_byte));
 	if(graph_[kkkk] == NULL)
@@ -588,12 +540,11 @@ pngwriter & pngwriter::operator = (const pngwriter & rhs)
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
      }
 
-   int tempindex;
-   for(int hhh = 0; hhh<width_;hhh++)
+   for(png_uint_32 hhh = 0; hhh<width_;hhh++)
      {
-	for(int vhhh = 0; vhhh<height_;vhhh++)
+	for(png_uint_32 vhhh = 0; vhhh<height_;vhhh++)
 	  {
-	     tempindex=6*hhh;
+	     const png_uint_32 tempindex = 6*hhh;
 	     graph_[vhhh][tempindex] = rhs.graph_[vhhh][tempindex];
 	     graph_[vhhh][tempindex+1] = rhs.graph_[vhhh][tempindex+1];
 	     graph_[vhhh][tempindex+2] = rhs.graph_[vhhh][tempindex+2];
@@ -607,7 +558,7 @@ pngwriter & pngwriter::operator = (const pngwriter & rhs)
 }
 
 ///////////////////////////////////////////////////////////////
-void pngwriter::plot(int x, int y, int red, int green, int blue)
+void pngwriter::plot(png_uint_32 x, png_uint_32 y, int red, int green, int blue)
 {
    int tempindex;
 
@@ -682,13 +633,13 @@ void pngwriter::plot(int x, int y, int red, int green, int blue)
      }
 };
 
-void pngwriter::plot(int x, int y, double red, double green, double blue)
+void pngwriter::plot(png_uint_32 x, png_uint_32 y, double red, double green, double blue)
 {
    this->plot(x,y,int(red*65535),int(green*65535),int(blue*65535));
 };
 
 ///////////////////////////////////////////////////////////////
-int pngwriter::read(int x, int y, int colour)
+int pngwriter::read(png_uint_32 x, png_uint_32 y, int colour)
 {
    int temp1,temp2;
 
@@ -755,7 +706,7 @@ int pngwriter::read(int x, int y, int colour)
 }
 
 ///////////////////////////////////////////////////////////////
-int pngwriter::read(int xxx, int yyy)
+int pngwriter::read(png_uint_32 xxx, png_uint_32 yyy)
 {
    int temp1,temp2,temp3,temp4,temp5;
 
@@ -1211,7 +1162,7 @@ void pngwriter::readfromfile(char * name)
    png_structp     png_ptr;
    png_infop       info_ptr;
    unsigned char   **image;
-   unsigned long   width, height;
+   png_uint_32   width, height;
    int bit_depth, color_type, interlace_type;
    //   png_uint_32     i;
    //
@@ -1601,12 +1552,12 @@ int pngwriter::read_png_image(FILE *fp, png_structp png_ptr, png_infop info_ptr,
 }
 
 ///////////////////////////////////
-int pngwriter::getheight(void)
+png_uint_32 pngwriter::getheight(void)
 {
    return height_;
 }
 
-int pngwriter::getwidth(void)
+png_uint_32 pngwriter::getwidth(void)
 {
    return width_;
 }
@@ -1758,7 +1709,7 @@ void pngwriter::RGBtoHSV( float r, float g, float b, float *h, float *s, float *
 
 //
 //////////////////////////////////////////////////////////////////////////////////
-void pngwriter::plotHSV(int x, int y, double hue, double saturation, double value)
+void pngwriter::plotHSV(png_uint_32 x, png_uint_32 y, double hue, double saturation, double value)
 {
    double red,green,blue;
    double *redp;
@@ -1773,14 +1724,14 @@ void pngwriter::plotHSV(int x, int y, double hue, double saturation, double valu
    plot(x,y,red,green,blue);
 }
 
-void pngwriter::plotHSV(int x, int y, int hue, int saturation, int value)
+void pngwriter::plotHSV(png_uint_32 x, png_uint_32 y, int hue, int saturation, int value)
 {
    plotHSV(x, y, double(hue)/65535.0, double(saturation)/65535.0,  double(value)/65535.0);
 }
 
 //
 //////////////////////////////////////////////////////////////////////////////////
-double pngwriter::dreadHSV(int x, int y, int colour)
+double pngwriter::dreadHSV(png_uint_32 x, png_uint_32 y, int colour)
 {
    if( (x>0)&&(x<=width_)&&(y>0)&&(y<=height_) )
      {
@@ -1823,7 +1774,7 @@ double pngwriter::dreadHSV(int x, int y, int colour)
 
 //
 //////////////////////////////////////////////////////////////////////////////////
-int pngwriter::readHSV(int x, int y, int colour)
+int pngwriter::readHSV(png_uint_32 x, png_uint_32 y, int colour)
 {
    if( (x>0)&&(x<=width_)&&(y>0)&&(y<=height_) )
      {
@@ -2254,12 +2205,12 @@ void pngwriter::plot_text_utf8( char * face_path, int fontsize, int x_start, int
    plot_text_utf8( face_path, fontsize, x_start, y_start,  angle,  text,  ((double) red)/65535.0,  ((double) green)/65535.0,  ((double) blue)/65535.0   );
 }
 
-void pngwriter::my_draw_bitmap( FT_Bitmap * bitmap, int x, int y, double red, double green, double blue)
+void pngwriter::my_draw_bitmap( FT_Bitmap * bitmap, png_uint_32 x, png_uint_32 y, double red, double green, double blue)
 {
    double temp;
-   for(int j=1; j<bitmap->rows+1; j++)
+   for(png_uint_32 j=1; j<bitmap->rows+1; j++)
      {
-	for(int i=1; i< bitmap->width + 1; i++)
+	for(png_uint_32 i=1; i< bitmap->width + 1; i++)
 	  {
 	     temp = (double)(bitmap->buffer[(j-1)*bitmap->width + (i-1)] )/255.0;
 
@@ -2282,7 +2233,7 @@ void pngwriter::my_draw_bitmap( FT_Bitmap * bitmap, int x, int y, double red, do
 
 //put in freetype section
 
-int pngwriter::get_text_width(char * face_path, int fontsize, char * text)
+png_uint_32 pngwriter::get_text_width(char * face_path, int fontsize, char * text)
 {
    
    FT_Library  library;
@@ -2619,14 +2570,14 @@ void pngwriter::plot_text_utf8( char * face_path, int fontsize, int x_start, int
 }
 
 //////////// Get text width
-int pngwriter::get_text_width(char * face_path, int fontsize, char * text)
+png_uint_32 pngwriter::get_text_width(char * face_path, int fontsize, char * text)
 {
    std::cerr << " PNGwriter::get_text_width - ERROR **:  PNGwriter was compiled without Freetype support! Recompile PNGwriter with Freetype support (once you have Freetype installed, that is. Websites: www.freetype.org and pngwriter.sourceforge.net)." << std::endl;
    return 0;
 }
 
 
-int pngwriter::get_text_width_utf8(char * face_path, int fontsize,  char * text)
+png_uint_32 pngwriter::get_text_width_utf8(char * face_path, int fontsize,  char * text)
 {
    std::cerr << " PNGwriter::get_text_width_utf8 - ERROR **:  PNGwriter was compiled without Freetype support! Recompile PNGwriter with Freetype support (once you have Freetype installed, that is. Websites: www.freetype.org and pngwriter.sourceforge.net)." << std::endl;
    return 0;
@@ -2763,9 +2714,9 @@ void pngwriter::invert(void)
    //   int temp1, temp2, temp3;
    double temp11, temp22, temp33;
 
-   for(int jjj = 1; jjj <= (this->height_); jjj++)
+   for(png_uint_32 jjj = 1; jjj <= (this->height_); jjj++)
      {
-	for(int iii = 1; iii <= (this->width_); iii++)
+	for(png_uint_32 iii = 1; iii <= (this->width_); iii++)
 	  {
 	     /*	     temp11 = (this->read(iii,jjj,1));
 	      temp22 = (this->read(iii,jjj,2));
@@ -2792,7 +2743,7 @@ void pngwriter::invert(void)
      }
 }
 
-void pngwriter::resize(int width, int height)
+void pngwriter::resize(png_uint_32 width, png_uint_32 height)
 {
 
    for (int jjj = 0; jjj < height_; jjj++) free(graph_[jjj]);
@@ -2808,7 +2759,7 @@ void pngwriter::resize(int width, int height)
 	std::cerr << " PNGwriter::resize - ERROR **:  Not able to allocate memory for image." << std::endl;
      }
 
-   for (int kkkk = 0; kkkk < height_; kkkk++)
+   for (png_uint_32 kkkk = 0; kkkk < height_; kkkk++)
      {
 	graph_[kkkk] = (png_bytep)malloc(6*width_ * sizeof(png_byte));
 	if(graph_[kkkk] == NULL)
@@ -2822,13 +2773,12 @@ void pngwriter::resize(int width, int height)
 	std::cerr << " PNGwriter::resize - ERROR **:  Not able to allocate memory for image." << std::endl;
      }
 
-   int tempindex;
-   for(int hhh = 0; hhh<width_;hhh++)
+   for(png_uint_32 hhh = 0; hhh<width_;hhh++)
      {
-	for(int vhhh = 0; vhhh<height_;vhhh++)
+	for(png_uint_32 vhhh = 0; vhhh<height_;vhhh++)
 	  {
 	     //graph_[vhhh][6*hhh + i] where i goes from 0 to 5
-	     tempindex = 6*hhh;
+	     const png_uint_32 tempindex = 6*hhh;
 	     graph_[vhhh][tempindex] = (char) floor(((double)backgroundcolour_)/256);
 	     graph_[vhhh][tempindex+1] = (char)(backgroundcolour_%256);
 	     graph_[vhhh][tempindex+2] = (char) floor(((double)backgroundcolour_)/256);
@@ -2839,7 +2789,7 @@ void pngwriter::resize(int width, int height)
      }
 }
 
-void pngwriter::boundary_fill(int xstart, int ystart, double boundary_red,double boundary_green,double boundary_blue,double fill_red, double fill_green, double fill_blue)
+void pngwriter::boundary_fill(png_uint_32 xstart, png_uint_32 ystart, double boundary_red,double boundary_green,double boundary_blue,double fill_red, double fill_green, double fill_blue)
 {
    if( (
 	(this->dread(xstart,ystart,1) != boundary_red) ||
@@ -2865,7 +2815,7 @@ void pngwriter::boundary_fill(int xstart, int ystart, double boundary_red,double
 }
 
 //no int version needed
-void pngwriter::flood_fill_internal(int xstart, int ystart,  double start_red, double start_green, double start_blue, double fill_red, double fill_green, double fill_blue)
+void pngwriter::flood_fill_internal(png_uint_32 xstart, png_uint_32 ystart,  double start_red, double start_green, double start_blue, double fill_red, double fill_green, double fill_blue)
 {
    if( (
 	(this->dread(xstart,ystart,1) == start_red) &&
@@ -3166,9 +3116,9 @@ void pngwriter::scale_k(double k)
      }
 
    // Calculate the new scaled height and width
-   int scaledh, scaledw;
-   scaledw = (int) ceil(k*width_);
-   scaledh = (int) ceil(k*height_);
+   png_uint_32 scaledh, scaledw;
+   scaledw = (png_uint_32) ceil(k*width_);
+   scaledh = (png_uint_32) ceil(k*height_);
 
    // Create image storage.
    pngwriter temp(scaledw,scaledh,0,"temp");
@@ -3216,7 +3166,7 @@ void pngwriter::scale_k(double k)
 	std::cerr << " PNGwriter::scale_k - ERROR **:  Not able to allocate memory for image." << std::endl;
      }
 
-   for (int kkkk = 0; kkkk < height_; kkkk++)
+   for (png_uint_32 kkkk = 0; kkkk < height_; kkkk++)
      {
 	graph_[kkkk] = (png_bytep)malloc(6*width_ * sizeof(png_byte));
 	if(graph_[kkkk] == NULL)
@@ -3233,12 +3183,11 @@ void pngwriter::scale_k(double k)
    //This instance now has a new, resized storage space.
 
    //Copy the temp date into this's storage.
-   int tempindex;
-   for(int hhh = 0; hhh<width_;hhh++)
+   for(png_uint_32 hhh = 0; hhh<width_;hhh++)
      {
 	for(int vhhh = 0; vhhh<height_;vhhh++)
 	  {
-	     tempindex=6*hhh;
+	     const png_uint_32 tempindex=6*hhh;
 	     graph_[vhhh][tempindex] = temp.graph_[vhhh][tempindex];
 	     graph_[vhhh][tempindex+1] = temp.graph_[vhhh][tempindex+1];
 	     graph_[vhhh][tempindex+2] = temp.graph_[vhhh][tempindex+2];
@@ -3259,9 +3208,9 @@ void pngwriter::scale_kxky(double kx, double ky)
 	std::cerr << " PNGwriter::scale_kxky - ERROR **:  scale_kxky() called with negative or zero scale factor. Was: " << kx << ", " << ky << "." << std::endl;
      }
 
-   int scaledh, scaledw;
-   scaledw = (int) ceil(kx*width_);
-   scaledh = (int) ceil(ky*height_);
+   png_uint_32 scaledh, scaledw;
+   scaledw = (png_uint_32) ceil(kx*width_);
+   scaledh = (png_uint_32) ceil(ky*height_);
 
    pngwriter temp(scaledw, scaledh, 0, "temp");
 
@@ -3307,7 +3256,7 @@ void pngwriter::scale_kxky(double kx, double ky)
 	std::cerr << " PNGwriter::scale_kxky - ERROR **:  Not able to allocate memory for image." << std::endl;
      }
 
-   for (int kkkk = 0; kkkk < height_; kkkk++)
+   for (png_uint_32 kkkk = 0; kkkk < height_; kkkk++)
      {
 	graph_[kkkk] = (png_bytep)malloc(6*width_ * sizeof(png_byte));
 	if(graph_[kkkk] == NULL)
@@ -3324,12 +3273,11 @@ void pngwriter::scale_kxky(double kx, double ky)
    //This instance now has a new, resized storage space.
 
    //Copy the temp date into this's storage.
-   int tempindex;
-   for(int hhh = 0; hhh<width_;hhh++)
+   for(png_uint_32 hhh = 0; hhh<width_;hhh++)
      {
 	for(int vhhh = 0; vhhh<height_;vhhh++)
 	  {
-	     tempindex=6*hhh;
+	     const png_uint_32 tempindex=6*hhh;
 	     graph_[vhhh][tempindex] = temp.graph_[vhhh][tempindex];
 	     graph_[vhhh][tempindex+1] = temp.graph_[vhhh][tempindex+1];
 	     graph_[vhhh][tempindex+2] = temp.graph_[vhhh][tempindex+2];
@@ -3344,7 +3292,7 @@ void pngwriter::scale_kxky(double kx, double ky)
    //
 }
 
-void pngwriter::scale_wh(int finalwidth, int finalheight)
+void pngwriter::scale_wh(png_uint_32 finalwidth, png_uint_32 finalheight)
 {
    if((finalwidth <= 0)||(finalheight <= 0))
      {
@@ -3366,9 +3314,9 @@ void pngwriter::scale_wh(int finalwidth, int finalheight)
 
    double readx, ready;
 
-   for(int x = 1; x<= finalwidth; x++)
+   for(png_uint_32 x = 1; x<= finalwidth; x++)
      {
-	for(int y = 1; y <= finalheight; y++)
+	for(png_uint_32 y = 1; y <= finalheight; y++)
 	  {
 	     readx = (2*x-1)*spacingx;
 	     ready = (2*y-1)*spacingy;
@@ -3402,7 +3350,7 @@ void pngwriter::scale_wh(int finalwidth, int finalheight)
 	std::cerr << " PNGwriter::scale_wh - ERROR **:  Not able to allocate memory for image." << std::endl;
      }
 
-   for (int kkkk = 0; kkkk < height_; kkkk++)
+   for (png_uint_32 kkkk = 0; kkkk < height_; kkkk++)
      {
 	graph_[kkkk] = (png_bytep)malloc(6*width_ * sizeof(png_byte));
 	if(graph_[kkkk] == NULL)
@@ -3419,12 +3367,11 @@ void pngwriter::scale_wh(int finalwidth, int finalheight)
    //This instance now has a new, resized storage space.
 
    //Copy the temp date into this's storage.
-   int tempindex;
-   for(int hhh = 0; hhh<width_;hhh++)
+   for(png_uint_32 hhh = 0; hhh<width_;hhh++)
      {
-	for(int vhhh = 0; vhhh<height_;vhhh++)
+	for(png_uint_32 vhhh = 0; vhhh<height_;vhhh++)
 	  {
-	     tempindex=6*hhh;
+	     const png_uint_32 tempindex=6*hhh;
 	     graph_[vhhh][tempindex] = temp.graph_[vhhh][tempindex];
 	     graph_[vhhh][tempindex+1] = temp.graph_[vhhh][tempindex+1];
 	     graph_[vhhh][tempindex+2] = temp.graph_[vhhh][tempindex+2];
@@ -3996,22 +3943,22 @@ void pngwriter::plot_text_utf8_blend( char * face_path, int fontsize, int x_star
    delete[] ucs4text;
 }
 
-void pngwriter::plot_text_blend( char * face_path, int fontsize, int x_start, int y_start, double angle, char * text, double opacity, int red, int green, int blue)
+void pngwriter::plot_text_blend( char * face_path, int fontsize, png_uint_32 x_start, png_uint_32 y_start, double angle, char * text, double opacity, int red, int green, int blue)
 {
    plot_text_blend( face_path, fontsize, x_start, y_start,  angle,  text, opacity,   ((double) red)/65535.0,  ((double) green)/65535.0,  ((double) blue)/65535.0   );
 }
 
-void pngwriter::plot_text_utf8_blend( char * face_path, int fontsize, int x_start, int y_start, double angle, char * text, double opacity,  int red, int green, int blue)
+void pngwriter::plot_text_utf8_blend( char * face_path, int fontsize, png_uint_32 x_start, png_uint_32 y_start, double angle, char * text, double opacity,  int red, int green, int blue)
 {
    plot_text_utf8_blend( face_path, fontsize, x_start, y_start,  angle,  text, opacity,  ((double) red)/65535.0,  ((double) green)/65535.0,  ((double) blue)/65535.0   );
 }
 
-void pngwriter::my_draw_bitmap_blend( FT_Bitmap * bitmap, int x, int y, double opacity, double red, double green, double blue)
+void pngwriter::my_draw_bitmap_blend( FT_Bitmap * bitmap, png_uint_32 x, png_uint_32 y, double opacity, double red, double green, double blue)
 {
    double temp;
-   for(int j=1; j<bitmap->rows+1; j++)
+   for(png_uint_32 j=1; j<bitmap->rows+1; j++)
      {
-	for(int i=1; i< bitmap->width + 1; i++)
+	for(png_uint_32 i=1; i< bitmap->width + 1; i++)
 	  {
 	     temp = (double)(bitmap->buffer[(j-1)*bitmap->width + (i-1)] )/255.0;
 
@@ -4061,7 +4008,7 @@ void pngwriter::plot_text_utf8_blend( char * face_path, int fontsize, int x_star
 
 ///////////////////////////
 
-void pngwriter::boundary_fill_blend(int xstart, int ystart, double opacity, double boundary_red,double boundary_green,double boundary_blue,double fill_red, double fill_green, double fill_blue)
+void pngwriter::boundary_fill_blend(png_uint_32 xstart, png_uint_32 ystart, double opacity, double boundary_red,double boundary_green,double boundary_blue,double fill_red, double fill_green, double fill_blue)
 {
    if( (
 	(this->dread(xstart,ystart,1) != boundary_red) ||
@@ -4087,7 +4034,7 @@ void pngwriter::boundary_fill_blend(int xstart, int ystart, double opacity, doub
 }
 
 //no int version needed
-void pngwriter::flood_fill_internal_blend(int xstart, int ystart, double opacity,  double start_red, double start_green, double start_blue, double fill_red, double fill_green, double fill_blue)
+void pngwriter::flood_fill_internal_blend(png_uint_32 xstart, png_uint_32 ystart, double opacity,  double start_red, double start_green, double start_blue, double fill_red, double fill_green, double fill_blue)
 {
    if( (
 	(this->dread(xstart,ystart,1) == start_red) &&
@@ -4244,7 +4191,7 @@ void pngwriter::plotCMYK_blend(int x, int y, double opacity, double cyan, double
 }
 
 //int version
-void pngwriter::plotCMYK_blend(int x, int y, double opacity, int cyan, int magenta, int yellow, int black)
+void pngwriter::plotCMYK_blend(png_uint_32 x, png_uint_32 y, double opacity, int cyan, int magenta, int yellow, int black)
 {
    this->plotCMYK_blend( x, y,
 			 opacity,
@@ -4263,9 +4210,9 @@ void pngwriter::laplacian(double k, double offset)
 
    double red, green, blue;
 
-   for(int x = 1; x <= width_; x++)
+   for(png_uint_32 x = 1; x <= width_; x++)
      {
-	for(int y = 1; y <= height_; y++)
+	for(png_uint_32 y = 1; y <= height_; y++)
 	  {
 	     red =
 	       8.0*this->dread(x,y,1) -
@@ -4305,9 +4252,9 @@ void pngwriter::laplacian(double k, double offset)
 	  }
      }
 
-   for(int xx = 1; xx <= width_; xx++)
+   for(png_uint_32 xx = 1; xx <= width_; xx++)
      {
-	for(int yy = 1; yy <= height_; yy++)
+	for(png_uint_32 yy = 1; yy <= height_; yy++)
 	  {
 	     this->plot(xx,yy,  temp.read(xx,yy,1), temp.read(xx,yy,2), temp.read(xx,yy,3));
 	  }
@@ -4670,59 +4617,59 @@ void pngwriter::filledarrow( int x1,int y1,int x2,int y2,int size, double head_a
 }
 
 
-void pngwriter::cross( int x, int y, int xwidth, int yheight, int red, int green, int blue)
+void pngwriter::cross( png_uint_32 x, png_uint_32 y, png_uint_32 xwidth, png_uint_32 yheight, int red, int green, int blue)
 {
    this->line(int(x - xwidth/2.0), y, int(x + xwidth/2.0), y, red, green, blue);
    this->line(x, int(y - yheight/2.0), x, int(y + yheight/2.0), red, green, blue);
 }
 
-void pngwriter::maltesecross( int x, int y, int xwidth, int yheight, int x_bar_height, int y_bar_width, int red, int green, int blue)
+void pngwriter::maltesecross( png_uint_32 x, png_uint_32 y, png_uint_32 xwidth, png_uint_32 yheight, png_uint_32 x_bar_height, png_uint_32 y_bar_width, int red, int green, int blue)
 {
-   this->line(int(x - xwidth/2.0), y, int(x + xwidth/2.0), y, red, green, blue);
-   this->line(x, int(y - yheight/2.0), x, int(y + yheight/2.0), red, green, blue);
+   this->line(png_uint_32(x - xwidth/2.0), y, png_uint_32(x + xwidth/2.0), y, red, green, blue);
+   this->line(x, png_uint_32(y - yheight/2.0), x, png_uint_32(y + yheight/2.0), red, green, blue);
    // Bars on ends of vertical line
-   this->line(int(x - y_bar_width/2.0), int(y + yheight/2.0), int(x + y_bar_width/2.0), int(y + yheight/2.0), red, green, blue);
-   this->line(int(x - y_bar_width/2.0), int(y - yheight/2.0), int(x + y_bar_width/2.0), int(y - yheight/2.0), red, green, blue);
+   this->line(png_uint_32(x - y_bar_width/2.0), png_uint_32(y + yheight/2.0), png_uint_32(x + y_bar_width/2.0), png_uint_32(y + yheight/2.0), red, green, blue);
+   this->line(png_uint_32(x - y_bar_width/2.0), png_uint_32(y - yheight/2.0), png_uint_32(x + y_bar_width/2.0), png_uint_32(y - yheight/2.0), red, green, blue);
    // Bars on ends of horizontal line.
-   this->line(int(x - xwidth/2.0), int(y - x_bar_height/2.0), int(x - xwidth/2.0), int(y + x_bar_height/2.0), red, green, blue);
-   this->line(int(x + xwidth/2.0), int(y - x_bar_height/2.0), int(x + xwidth/2.0), int(y + x_bar_height/2.0), red, green, blue);
+   this->line(png_uint_32(x - xwidth/2.0), png_uint_32(y - x_bar_height/2.0), png_uint_32(x - xwidth/2.0), png_uint_32(y + x_bar_height/2.0), red, green, blue);
+   this->line(png_uint_32(x + xwidth/2.0), png_uint_32(y - x_bar_height/2.0), png_uint_32(x + xwidth/2.0), png_uint_32(y + x_bar_height/2.0), red, green, blue);
 }
 
-void pngwriter::cross( int x, int y, int xwidth, int yheight, double red, double green, double blue)
+void pngwriter::cross( png_uint_32 x, png_uint_32 y, png_uint_32 xwidth, png_uint_32 yheight, double red, double green, double blue)
 {
-   this->cross( x, y, xwidth, yheight, int(65535*red), int(65535*green), int(65535*blue)); 
+   this->cross( x, y, xwidth, yheight, png_uint_32(65535*red), png_uint_32(65535*green), png_uint_32(65535*blue)); 
 }
 
-void pngwriter::maltesecross( int x, int y, int xwidth, int yheight, int x_bar_height, int y_bar_width, double red, double green, double blue)
+void pngwriter::maltesecross( png_uint_32 x, png_uint_32 y, png_uint_32 xwidth, png_uint_32 yheight, png_uint_32 x_bar_height, png_uint_32 y_bar_width, double red, double green, double blue)
 {
-   this->maltesecross( x, y, xwidth, yheight, x_bar_height, y_bar_width, int(65535*red), int(65535*green), int(65535*blue)); 
-}
-
-
-void pngwriter::filleddiamond( int x, int y, int width, int height, int red, int green, int blue)
-{
-   this->filledtriangle( int(x - width/2.0), y, x, y, x, int(y + height/2.0), red, green, blue);
-   this->filledtriangle( int(x + width/2.0), y, x, y, x, int(y + height/2.0), red, green, blue);
-   this->filledtriangle( int(x - width/2.0), y, x, y, x, int(y - height/2.0), red, green, blue);
-   this->filledtriangle( int(x + width/2.0), y, x, y, x, int(y - height/2.0), red, green, blue);
-}
-
-void pngwriter::diamond( int x, int y, int width, int height, int red, int green, int blue)
-{
-   this->line( int(x - width/2.0), y, x, int(y + height/2.0), red, green, blue);
-   this->line( int(x + width/2.0), y, x, int(y + height/2.0), red, green, blue);
-   this->line( int(x - width/2.0), y, x, int(y - height/2.0), red, green, blue);
-   this->line( int(x + width/2.0), y, x, int(y - height/2.0), red, green, blue);
+   this->maltesecross( x, y, xwidth, yheight, x_bar_height, y_bar_width, png_uint_32(65535*red), png_uint_32(65535*green), png_uint_32(65535*blue)); 
 }
 
 
-void pngwriter::filleddiamond( int x, int y, int width, int height, double red, double green, double blue)
+void pngwriter::filleddiamond( png_uint_32 x, png_uint_32 y, png_uint_32 width, png_uint_32 height, int red, int green, int blue)
 {
-   this->filleddiamond(  x, y,  width,  height, int(red*65535), int(green*65535), int(blue*65535) ); 
+   this->filledtriangle( png_uint_32(x - width/2.0), y, x, y, x, png_uint_32(y + height/2.0), red, green, blue);
+   this->filledtriangle( png_uint_32(x + width/2.0), y, x, y, x, png_uint_32(y + height/2.0), red, green, blue);
+   this->filledtriangle( png_uint_32(x - width/2.0), y, x, y, x, png_uint_32(y - height/2.0), red, green, blue);
+   this->filledtriangle( png_uint_32(x + width/2.0), y, x, y, x, png_uint_32(y - height/2.0), red, green, blue);
 }
 
-void pngwriter::diamond( int x, int y, int width, int height, double red, double green, double blue)
+void pngwriter::diamond( png_uint_32 x, png_uint_32 y, png_uint_32 width, png_uint_32 height, int red, int green, int blue)
 {
-   this->diamond(  x,  y,  width,  height, int(red*65535), int(green*65535), int(blue*65535) ); 
+   this->line( png_uint_32(x - width/2.0), y, x, png_uint_32(y + height/2.0), red, green, blue);
+   this->line( png_uint_32(x + width/2.0), y, x, png_uint_32(y + height/2.0), red, green, blue);
+   this->line( png_uint_32(x - width/2.0), y, x, png_uint_32(y - height/2.0), red, green, blue);
+   this->line( png_uint_32(x + width/2.0), y, x, png_uint_32(y - height/2.0), red, green, blue);
+}
+
+
+void pngwriter::filleddiamond( png_uint_32 x, png_uint_32 y, png_uint_32 width, png_uint_32 height, double red, double green, double blue)
+{
+   this->filleddiamond( x, y, width, height, int(red*65535), int(green*65535), int(blue*65535) );
+}
+
+void pngwriter::diamond( png_uint_32 x, png_uint_32 y, png_uint_32 width, png_uint_32 height, double red, double green, double blue)
+{
+   this->diamond( x, y, width, height, int(red*65535), int(green*65535), int(blue*65535) );
 }
 
