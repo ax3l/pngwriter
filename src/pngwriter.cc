@@ -41,6 +41,25 @@
 
 #include "pngwriter.h"
 
+/* third party includes */
+#include <png.h>
+#if (PNG_LIBPNG_VER >= 10500)
+#include <zlib.h>
+#endif
+
+// REMEMBER TO ADD -DNO_FREETYPE TO YOUR COMPILATION FLAGS IF PNGwriter WAS
+// COMPILED WITHOUT FREETYPE SUPPORT!!!
+//
+// <png.h> must be included before FreeType headers.
+#ifndef NO_FREETYPE
+#include <ft2build.h>
+#include FT_FREETYPE_H
+#else
+struct FT_Bitmap
+{
+};
+#endif
+
 // Default Constructor
 ////////////////////////////////////////////////////////////////////////////
 pngwriter::pngwriter()

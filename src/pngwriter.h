@@ -52,21 +52,6 @@
 #define PNGWRITER_EVALUATE(x,y,z) PNGWRITER_PASTE(x,y,z)
 #define PNGWRITER_VERSION PNGWRITER_EVALUATE(PNGWRITER_VERSION_MAJOR, PNGWRITER_VERSION_MINOR, PNGWRITER_VERSION_PATCH)
 
-/* includes */
-#include <png.h>
-#if (PNG_LIBPNG_VER >= 10500)
-#include <zlib.h>
-#endif
-
-// REMEMBER TO ADD -DNO_FREETYPE TO YOUR COMPILATION FLAGS IF PNGwriter WAS
-// COMPILED WITHOUT FREETYPE SUPPORT!!!
-//
-// <png.h> must be included before FreeType headers.
-#ifndef NO_FREETYPE
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#endif
-
 #include <iostream>
 #include <cmath>
 #include <cwchar>
@@ -79,6 +64,18 @@
 
 #define PNG_BYTES_TO_CHECK (4)
 #define PNGWRITER_DEFAULT_COMPRESSION (6)
+
+/* forward declare FT_Bitmap for a parameter of two private member functions,
+ * when FREETYPE is enabled */
+extern "C"
+{
+  struct FT_Bitmap;
+  struct png_structp;
+  struct png_infop;
+  struct png_uint_32;
+  struct png_bytepp;
+}
+
 
 class pngwriter 
 {
