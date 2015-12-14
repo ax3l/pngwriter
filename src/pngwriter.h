@@ -92,7 +92,7 @@ class pngwriter
    char * textsoftware_;   
 
 
-   
+   bool initialized_; // is the object initialized (readable, writable, ...)
    int height_;
    int width_;
    int  backgroundcolour_;

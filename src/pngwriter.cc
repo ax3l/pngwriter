@@ -45,7 +45,7 @@
 ////////////////////////////////////////////////////////////////////////////
 pngwriter::pngwriter()
 {
-
+   initialized_ = true;
    filename_ = new char[255];
    textauthor_ = new char[255];
    textdescription_ = new char[255];
@@ -75,6 +75,8 @@ pngwriter::pngwriter()
    if(graph_ == NULL)
      {
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
+	initialized_ = false;
+	return;
      }
 
    for (kkkk = 0; kkkk < height_; kkkk++)
@@ -83,12 +85,16 @@ pngwriter::pngwriter()
 	if(graph_[kkkk] == NULL)
 	  {
 	     std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
+	     initialized_ = false;
+	     return;
 	  }
      }
 
    if(graph_ == NULL)
      {
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
+	initialized_ = false;
+	return;
      }
 
    int tempindex;
@@ -112,6 +118,10 @@ pngwriter::pngwriter()
 //////////////////////////////////////////////////////////////////////////
 pngwriter::pngwriter(const pngwriter &rhs)
 {
+   initialized_ = rhs.initialized_;
+   if( !initialized_ )
+      return;
+
    width_ = rhs.width_;
    height_ = rhs.height_;
    backgroundcolour_ = rhs.backgroundcolour_;
@@ -141,6 +151,8 @@ pngwriter::pngwriter(const pngwriter &rhs)
    if(graph_ == NULL)
      {
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
+	initialized_ = false;
+	return;
      }
 
    for (kkkk = 0; kkkk < height_; kkkk++)
@@ -149,12 +161,16 @@ pngwriter::pngwriter(const pngwriter &rhs)
 	if(graph_[kkkk] == NULL)
 	  {
 	     std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
+	     initialized_ = false;
+	     return;
 	  }
      }
 
    if(graph_ == NULL)
      {
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
+	initialized_ = false;
+	return;
      }
    int tempindex;
    for(int hhh = 0; hhh<width_;hhh++)
@@ -178,6 +194,7 @@ pngwriter::pngwriter(const pngwriter &rhs)
 //////////////////////////////////////////////////////////////////////////
 pngwriter::pngwriter(int x, int y, int backgroundcolour, char * filename)
 {
+   initialized_ = true;
    width_ = x;
    height_ = y;
    backgroundcolour_ = backgroundcolour;
@@ -226,6 +243,8 @@ pngwriter::pngwriter(int x, int y, int backgroundcolour, char * filename)
    if(graph_ == NULL)
      {
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
+	initialized_ = false;
+	return;
      }
 
    for (kkkk = 0; kkkk < height_; kkkk++)
@@ -234,12 +253,16 @@ pngwriter::pngwriter(int x, int y, int backgroundcolour, char * filename)
 	if(graph_[kkkk] == NULL)
 	  {
 	     std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
+	     initialized_ = false;
+	     return;
 	  }
      }
 
    if(graph_ == NULL)
      {
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
+	initialized_ = false;
+	return;
      }
 
    if(backgroundcolour_ == 0)
@@ -271,6 +294,7 @@ pngwriter::pngwriter(int x, int y, int backgroundcolour, char * filename)
 /////////////////////////////////////////////////////////////////////////
 pngwriter::pngwriter(int x, int y, double backgroundcolour, char * filename)
 {
+   initialized_ = true;
    width_ = x;
    height_ = y;
    compressionlevel_ = -2;
@@ -319,6 +343,8 @@ pngwriter::pngwriter(int x, int y, double backgroundcolour, char * filename)
    if(graph_ == NULL)
      {
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
+	initialized_ = false;
+	return;
      }
 
    for (kkkk = 0; kkkk < height_; kkkk++)
@@ -327,12 +353,16 @@ pngwriter::pngwriter(int x, int y, double backgroundcolour, char * filename)
 	if(graph_[kkkk] == NULL)
 	  {
 	     std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
+	     initialized_ = false;
+	     return;
 	  }
      }
 
    if(graph_ == NULL)
      {
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
+	initialized_ = false;
+	return;
      }
 
    if(backgroundcolour_ == 0)
@@ -411,6 +441,7 @@ pngwriter::~pngwriter()
 //////////////////////////////////////////////////////////////
 pngwriter::pngwriter(int x, int y, int backgroundcolour, const char * filename)
 {
+   initialized_ = true;
    width_ = x;
    height_ = y;
    backgroundcolour_ = backgroundcolour;
@@ -459,6 +490,8 @@ pngwriter::pngwriter(int x, int y, int backgroundcolour, const char * filename)
    if(graph_ == NULL)
      {
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
+	initialized_ = false;
+	return;
      }
 
    for (kkkk = 0; kkkk < height_; kkkk++)
@@ -467,12 +500,16 @@ pngwriter::pngwriter(int x, int y, int backgroundcolour, const char * filename)
 	if(graph_[kkkk] == NULL)
 	  {
 	     std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
+	     initialized_ = false;
+	     return;
 	  }
      }
 
    if(graph_ == NULL)
      {
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
+	initialized_ = false;
+	return;
      }
 
    if(backgroundcolour_ == 0)
@@ -504,6 +541,7 @@ pngwriter::pngwriter(int x, int y, int backgroundcolour, const char * filename)
 /////////////////////////////////////////////////////////////////////////
 pngwriter::pngwriter(int x, int y, double backgroundcolour, const char * filename)
 {
+   initialized_ = true;
    width_ = x;
    height_ = y;
    compressionlevel_ = -2;
@@ -552,6 +590,8 @@ pngwriter::pngwriter(int x, int y, double backgroundcolour, const char * filenam
    if(graph_ == NULL)
      {
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
+	initialized_ = false;
+	return;
      }
 
    for (kkkk = 0; kkkk < height_; kkkk++)
@@ -560,12 +600,16 @@ pngwriter::pngwriter(int x, int y, double backgroundcolour, const char * filenam
 	if(graph_[kkkk] == NULL)
 	  {
 	     std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
+	     initialized_ = false;
+	     return;
 	  }
      }
 
    if(graph_ == NULL)
      {
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
+	initialized_ = false;
+	return;
      }
 
    if(backgroundcolour_ == 0)
@@ -603,6 +647,10 @@ pngwriter & pngwriter::operator = (const pngwriter & rhs)
    // free old allocations from member variables
    deleteMembers();
 
+   initialized_ = rhs.initialized_;
+   if( !initialized_ )
+      return *this;
+
    width_ = rhs.width_;
    height_ = rhs.height_;
    backgroundcolour_ = rhs.backgroundcolour_;
@@ -632,6 +680,8 @@ pngwriter & pngwriter::operator = (const pngwriter & rhs)
    if(graph_ == NULL)
      {
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
+	initialized_ = false;
+	return *this;
      }
 
    for (kkkk = 0; kkkk < height_; kkkk++)
@@ -640,12 +690,16 @@ pngwriter & pngwriter::operator = (const pngwriter & rhs)
 	if(graph_[kkkk] == NULL)
 	  {
 	     std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
+	     initialized_ = false;
+	     return *this;
 	  }
      }
 
    if(graph_ == NULL)
      {
 	std::cerr << " PNGwriter::pngwriter - ERROR **:  Not able to allocate memory for image." << std::endl;
+	initialized_ = false;
+	return *this;
      }
 
    int tempindex;
@@ -669,6 +723,9 @@ pngwriter & pngwriter::operator = (const pngwriter & rhs)
 ///////////////////////////////////////////////////////////////
 void pngwriter::plot(int x, int y, int red, int green, int blue)
 {
+   if( !initialized_ )
+      return;
+
    int tempindex;
 
    if(red > 65535)
@@ -750,6 +807,9 @@ void pngwriter::plot(int x, int y, double red, double green, double blue)
 ///////////////////////////////////////////////////////////////
 int pngwriter::read(int x, int y, int colour)
 {
+   if( !initialized_ )
+      return 0;
+
    int temp1,temp2;
 
    if((colour !=1)&&(colour !=2)&&(colour !=3))
@@ -817,6 +877,9 @@ int pngwriter::read(int x, int y, int colour)
 ///////////////////////////////////////////////////////////////
 int pngwriter::read(int xxx, int yyy)
 {
+   if( !initialized_ )
+      return 0;
+
    int temp1,temp2,temp3,temp4,temp5;
 
    if(
@@ -879,6 +942,9 @@ double  pngwriter::dread(int x, int y)
 ///////////////////////////////////////////////////////
 void pngwriter::clear()
 {
+   if( !initialized_ )
+      return;
+
    int pen = 0;
    int pencil = 0;
    int tempindex;
@@ -1013,6 +1079,9 @@ void pngwriter::settext(const char * title, const char * author, const char * de
 ///////////////////////////////////////////////////////
 void pngwriter::close()
 {
+   if( !initialized_ )
+      return;
+
    FILE            *fp;
    png_structp     png_ptr;
    png_infop       info_ptr;
@@ -1293,6 +1362,10 @@ void pngwriter::readfromfile(char * name)
    unsigned char   **image;
    png_uint_32     width, height;
    int bit_depth, color_type, interlace_type;
+
+   // handle subsequent calls (failing, later success) on same object
+   // initialized_ = true; ??
+
    //   png_uint_32     i;
    //
    fp = fopen (name,"rb");
@@ -1302,6 +1375,7 @@ void pngwriter::readfromfile(char * name)
 	std::cerr << name <<std::flush;
 	std::cerr << "\"." << std::endl << std::flush;
 	perror(" PNGwriter::readfromfile - ERROR **");
+	initialized_ = false;
 	return;
      }
 
@@ -1309,6 +1383,7 @@ void pngwriter::readfromfile(char * name)
      {
 	std::cerr << " PNGwriter::readfromfile - ERROR **: Error opening file " << name << ". This may not be a valid png file. (check_if_png() failed)." << std::endl;
 	// fp has been closed already if check_if_png() fails.
+	initialized_ = false;
 	return;
      }
 
@@ -1317,6 +1392,7 @@ void pngwriter::readfromfile(char * name)
      {
 	std::cerr << " PNGwriter::readfromfile - ERROR **: Error opening file " << name << ". read_png_info() failed." << std::endl;
 	// fp has been closed already if read_png_info() fails.
+	initialized_ = false;
 	return;
      }
 
@@ -1324,6 +1400,7 @@ void pngwriter::readfromfile(char * name)
      {
 	std::cerr << " PNGwriter::readfromfile - ERROR **: Error opening file " << name << ". read_png_image() failed." << std::endl;
 	// fp has been closed already if read_png_image() fails.
+	initialized_ = false;
 	return;
      }
 
@@ -1341,7 +1418,8 @@ void pngwriter::readfromfile(char * name)
 	 
 	std::cerr << " PNGwriter::readfromfile - ERROR **: Error opening file " << name << ". read_png_info() failed." << std::endl; 
 	// fp has been closed already if read_png_info() fails. 
-	return; 
+	initialized_ = false;
+	return;
      } 
    
    // UPDATE: Query info struct to get header info BEFORE reading the image  
@@ -1360,6 +1438,7 @@ void pngwriter::readfromfile(char * name)
      { 
 	std::cerr << " PNGwriter::readfromfile - ERROR **: Error opening file " << name << ". read_png_image() failed." << std::endl; 
 	// fp has been closed already if read_png_image() fails. 
+	initialized_ = false;
 	return; 
      } 
    
@@ -1376,7 +1455,8 @@ void pngwriter::readfromfile(char * name)
 	 
 	std::cerr << " PNGwriter::readfromfile - ERROR **: Error opening file " << name << ". read_png_info() failed." << std::endl; 
 	// fp has been closed already if read_png_info() fails. 
-	  return; 
+	initialized_ = false;
+	return;
      } 
    
    //Input transformations  
@@ -1437,7 +1517,8 @@ void pngwriter::readfromfile(char * name)
      { 
 	std::cerr << " PNGwriter::readfromfile - ERROR **: Error opening file " << name << ". read_png_image() failed." << std::endl; 
 	// fp has been closed already if read_png_image() fails. 
-	return; 
+	initialized_ = false;
+	return;
      } 
    
    //stuff should now be in image[][].
@@ -1449,6 +1530,7 @@ void pngwriter::readfromfile(char * name)
      {
 	std::cerr << " PNGwriter::readfromfile - ERROR **: Error opening file " << name << ". Can't assign memory (after read_png_image(), image is NULL)." << std::endl;
 	fclose(fp);
+	initialized_ = false;
 	return;
      }
 
@@ -2024,6 +2106,9 @@ void pngwriter::write_png(void)
 ///////////////////////////////////////////
 void pngwriter::plot_text( char * face_path, int fontsize, int x_start, int y_start, double angle, char * text, double red, double green, double blue)
 {
+   if( !initialized_ )
+      return;
+
    FT_Library  library;
    FT_Face     face;
    FT_Matrix   matrix;      // transformation matrix
@@ -2136,6 +2221,9 @@ void pngwriter::plot_text( char * face_path, int fontsize, int x_start, int y_st
 
 void pngwriter::plot_text_utf8( char * face_path, int fontsize, int x_start, int y_start, double angle,  char * text, double red, double green, double blue)
 {
+   if( !initialized_ )
+      return;
+
    FT_Library  library;
    FT_Face     face;
    FT_Matrix   matrix;      // transformation matrix
@@ -2929,9 +3017,11 @@ void pngwriter::invert(void)
 
 void pngwriter::resize(int width, int height)
 {
-
-   for (int jjj = 0; jjj < height_; jjj++) free(graph_[jjj]);
-   free(graph_);
+   if( initialized_ )
+   {
+       for (int jjj = 0; jjj < height_; jjj++) free(graph_[jjj]);
+       free(graph_);
+   }
 
    width_ = width;
    height_ = height;
@@ -2941,6 +3031,7 @@ void pngwriter::resize(int width, int height)
    if(graph_ == NULL)
      {
 	std::cerr << " PNGwriter::resize - ERROR **:  Not able to allocate memory for image." << std::endl;
+    // todo!
      }
 
    for (int kkkk = 0; kkkk < height_; kkkk++)
@@ -3262,9 +3353,13 @@ int pngwriter::readCMYK(int x, int y, int colour)
 
 void pngwriter::scale_k(double k)
 {
+   if( !initialized_ )
+      return;
+
    if(k <= 0.0)
      {
 	std::cerr << " PNGwriter::scale_k - ERROR **:  scale_k() called with negative or zero scale factor. Was: " << k << "." << std::endl;
+    // todo
      }
 
    // Calculate the new scaled height and width
@@ -3316,6 +3411,7 @@ void pngwriter::scale_k(double k)
    if(graph_ == NULL)
      {
 	std::cerr << " PNGwriter::scale_k - ERROR **:  Not able to allocate memory for image." << std::endl;
+    // todo
      }
 
    for (int kkkk = 0; kkkk < height_; kkkk++)
@@ -3356,9 +3452,13 @@ void pngwriter::scale_k(double k)
 
 void pngwriter::scale_kxky(double kx, double ky)
 {
+   if( !initialized_ )
+      return;
+
    if((kx <= 0.0)||(ky <= 0.0))
      {
 	std::cerr << " PNGwriter::scale_kxky - ERROR **:  scale_kxky() called with negative or zero scale factor. Was: " << kx << ", " << ky << "." << std::endl;
+    // todo!
      }
 
    int scaledh, scaledw;
@@ -3407,6 +3507,7 @@ void pngwriter::scale_kxky(double kx, double ky)
    if(graph_ == NULL)
      {
 	std::cerr << " PNGwriter::scale_kxky - ERROR **:  Not able to allocate memory for image." << std::endl;
+    // todo!
      }
 
    for (int kkkk = 0; kkkk < height_; kkkk++)
@@ -3448,9 +3549,13 @@ void pngwriter::scale_kxky(double kx, double ky)
 
 void pngwriter::scale_wh(int finalwidth, int finalheight)
 {
+   if( !initialized_ )
+      return;
+
    if((finalwidth <= 0)||(finalheight <= 0))
      {
 	std::cerr << " PNGwriter::scale_wh - ERROR **: Negative or zero final width or height not allowed." << std::endl;
+    // todo!
      }
 
    pngwriter temp(finalwidth, finalheight, 0, "temp");
@@ -3496,6 +3601,7 @@ void pngwriter::scale_wh(int finalwidth, int finalheight)
    if(graph_ == NULL)
      {
 	std::cerr << " PNGwriter::scale_wh - ERROR **:  Not able to allocate memory for image." << std::endl;
+    // todo!
      }
 
    for (int kkkk = 0; kkkk < height_; kkkk++)
